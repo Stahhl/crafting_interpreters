@@ -15,3 +15,5 @@ Python and Haskell have significant whitespace / indentation. Making it beyond r
 
 # 4
 > Add support to Lox’s scanner for C-style /* ... */ block comments. Make sure to handle newlines in them. Consider allowing them to nest. Is adding support for nesting more work than you expected? Why?
+
+https://github.com/Stahhl/crafting_interpreters/blob/main/jLox/src/com/craftinginterpreters/lox/Scanner.java#L82
