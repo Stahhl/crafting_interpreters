@@ -31,12 +31,20 @@ public class Lox {
                 print "Hello World!"
                 /* ignore me to */
                 """;
+
+        code = """
+               4 >= 3
+               """;
         var scanner = new Scanner(code);
         var tokens = scanner.scanTokens();
 
-        for (var token : tokens) {
-            System.out.println(token.type);
-        }
+        Parser parser = new Parser(tokens);
+        Expr expression = parser.parse();
+
+        // Stop if there was a syntax error.
+        if (hadError) return;
+
+        System.out.println(new AstPrinter().print(expression));
     }
 
     private static void runFile(String path) throws IOException {
@@ -79,5 +87,13 @@ public class Lox {
         System.err.println(
                 "[line " + line + "] Error" + where + ": " + message);
         hadError = true;
+    }
+
+    static void error(Token token, String message) {
+        if (token.type == TokenType.EOF) {
+            report(token.line, " at end", message);
+        } else {
+            report(token.line, " at '" + token.lexeme + "'", message);
+        }
     }
 }
