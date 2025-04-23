@@ -26,23 +26,20 @@ public class Lox {
 //        }
         var code =
                 """
-                /*
-                  ignore me
-                */
-                // ignore me
-                var x = 5;
-                print x;
-                """;
-        code = """
-                var a = 0;
-                var temp;
-
-                for (var b = 1; a < 10000; b = temp + b) {
-                  print a;
-                  temp = a;
-                  a = b;
+                fun makeCounter() {
+                  var i = 0;
+                  fun count() {
+                    i = i + 1;
+                    print i;
+                  }
+                
+                  return count;
                 }
-               """;
+                
+                var counter = makeCounter();
+                counter(); // "1".
+                counter(); // "2".
+                """;
 
         var scanner = new Scanner(code);
         var tokens = scanner.scanTokens();
