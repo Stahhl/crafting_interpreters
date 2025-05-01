@@ -26,19 +26,16 @@ public class Lox {
 //        }
         var code =
                 """
-                fun makeCounter() {
-                  var i = 0;
-                  fun count() {
-                    i = i + 1;
-                    print i;
-                  }
-                
-                  return count;
-                }
-                
-                var counter = makeCounter();
-                counter(); // "1".
-                counter(); // "2".
+var a = "global";
+{
+  fun showA() {
+    print a;
+  }
+
+  showA();
+  var a = "block";
+  showA();
+}
                 """;
 
         var scanner = new Scanner(code);
@@ -49,6 +46,13 @@ public class Lox {
 
         // Stop if there was a syntax error.
         if (hadError) return;
+
+        Resolver resolver = new Resolver(interpreter);
+        resolver.resolve(statements);
+
+        // Stop if there was a resolution error.
+        if (hadError) return;
+
         interpreter.interpret(statements);
 
 //        System.out.println(new AstPrinter().print(expression));
