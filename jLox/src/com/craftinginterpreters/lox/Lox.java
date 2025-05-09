@@ -26,16 +26,16 @@ public class Lox {
 //        }
         var code =
                 """
-var a = "global";
-{
-  fun showA() {
-    print a;
-  }
-
-  showA();
-  var a = "block";
-  showA();
-}
+                        class Cake {
+                          taste() {
+                            var adjective = "delicious";
+                            print "The " + this.flavor + " cake is " + adjective + "!";
+                          }
+                        }
+                        
+                        var cake = Cake();
+                        cake.flavor = "German chocolate";
+                        cake.taste(); // Prints "The German chocolate cake is delicious!".
                 """;
 
         var scanner = new Scanner(code);
